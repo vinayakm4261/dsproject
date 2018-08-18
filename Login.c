@@ -2,6 +2,7 @@
 #include<stdio.h>
 #inlcude<conio.h>
 #inlcude<stdlib.h>
+#include<string.h>
 void login()
 {
  int i=0;

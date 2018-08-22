@@ -49,7 +49,7 @@ void main()
    }
  }while(1);                                               
 }
-void add
+void add()
 {
   FILE *fp;
   int i,j,k,room_number;
@@ -79,19 +79,20 @@ void add
      s.room_number=room_number;
      NAME:
      printf("Enter your name:");
-     gets(name);
-     if((strlen(name))<=2)
+     gets(s.name);
+     if((strlen(s.name))<=2)
      {
        printf("\nEntered name is invalid");
        printf("\nPress any key to continue..");
        goto NAME;
        getch();
-      }
-      No_of_People:
-      printf("Enter the number of people:");
-      scanf("%d",&s.no_of_people);
+     }
+     No_of_People:
+     printf("Enter the number of people:");
+     scanf("%d",&s.no_of_people);
       
        
      
        
 
+    

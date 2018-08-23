@@ -155,7 +155,36 @@ void add()
        getch();
        goto EMAIL;
      }
-        
+void login()
+{
+  int a=4;
+  char uword[100];
+  char pword[100];
+  do
+ {clrscr();
+  printf("************************LOGIN FORM***************************");
+  printf("\nEnter the username:/n");
+  scanf("%s",uword);
+  printf("/nEnter the password:");
+  int i=0;
+  while (i<6)
+  {
+    pword[i]=getch();
+    printf("*");
+    i++;
+  }
+  pword[i]='/0';
+  if((uword=="admin")&&(pword=="admin"))
+  {printf("/nInvalid username or password");
+   a--;}
+  else
+  {printf("/nLogin Successful/n");
+   exit(1);
+ }
+ while(a); 
+  
+  
+  
 
 
 

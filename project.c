@@ -25,7 +25,7 @@ void login();
 void menu();
 void main()
 {
-  system("cls");
+  //system("cls");
   int i,j,k;
   printf("\nWelcome to the.....\n");//<--Think of something here..!!
   menu();                                               
@@ -76,24 +76,24 @@ void add()
   //system("cls");
   if((fp=fopen("Reserv_Details.txt","a+"))!=NULL)
   {
+    ROOM:
+    printf("\nEnter the room number which you want to book:");
+    scanf("%d",&room_number);
+    INDATE:
+    printf("\nEnter Check-In Date:");
+    printf("\nMonth:-");
+    scanf("%d",&start_mm);
+    printf("\nDate:");
+    scanf("%d",&start_dd);
+    OUTDATE:
+    printf("\nEnter Check-Out Date:");
+    printf("\nMonth:");
+    scanf("%d",&end_mm);
+    printf("\nDate:");
+    scanf("%d",&end_dd);
     //Main loop for checking only
     while((fscanf(fp," %d %s %d %s %s %d %d %d %d ",&s.room_number,s.name,&s.no_of_people,s.add,s.email,&s.start_dd,&s.start_mm,&s.end_dd,&s.end_mm))!=EOF)//Main scanning loop
     {
-      ROOM:
-      printf("\nEnter the room number which you want to book:");
-      scanf("%d",&room_number);
-      INDATE:
-      printf("\nEnter Check-In Date:");
-      printf("\nMonth:-");
-      scanf("%d",&start_mm);
-      printf("\nDate:");
-      scanf("%d",&start_dd);
-      OUTDATE:
-      printf("\nEnter Check-Out Date:");
-      printf("\nMonth:");
-      scanf("%d",&end_mm);
-      printf("\nDate:");
-      scanf("%d",&end_dd);
       if(start_mm==s.start_mm && end_mm==s.end_mm)//Conditions for checking only date
       {       
         if((start_dd=s.start_dd) || (start_dd>s.start_dd && start_dd<s.end_dd) || (start_dd==s.end_dd))
@@ -126,17 +126,17 @@ void add()
      s.end_mm=end_mm;
     }
     NAME:
-    printf("Enter your name:");
+    printf("\nEnter your name:");
     gets(s.name);
     if((strlen(s.name))<=2)
     {
       printf("\nEntered name is invalid");
       printf("\nPress any key to continue..");
-      goto NAME;
       getch();
+      goto NAME;
     }
     No_of_People:
-    printf("Enter the number of people:");
+    printf("\nEnter the number of people:");
     scanf("%d",&s.no_of_people);
     if(s.no_of_people<1)
     {
@@ -146,7 +146,7 @@ void add()
       getch();
     }
     ADDRESS:
-    printf("Enter your current residential address:");
+    printf("\nEnter your current residential address:");
     gets(s.add);
     if((strlen(s.add))<=4)
     {
@@ -168,12 +168,12 @@ void add()
     }  
     if(chk!=1)
     {
-      printf("Invalid Email-ID");
+      printf("\nInvalid Email-ID");
       printf("\nEnter again..press any key to continue");
       getch();
       goto EMAIL;
     }
-    fprintf(fp," %d %s %d %s %s %d %d %d %d ",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+    fprintf(fp,"\n %d %s %d %s %s %d %d %d %d ",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
     printf("\nRoom booked successfully..!!");
     fclose(fp);
   }
@@ -187,15 +187,8 @@ void add()
   {
     add();
   }
-}   
-    
-        
-
-
-
-      
-       
-     
+}
+  
        
 
     

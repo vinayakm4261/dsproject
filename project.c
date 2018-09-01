@@ -17,10 +17,10 @@ struct roomdetail
   int end_mm;
 }s;
 void add();
-void delete();
-void edit();
-void print();
-void input();
+//void delete();
+//void edit();
+//void print();
+//void input();
 void login();
 void menu();
 void main()
@@ -46,11 +46,11 @@ void menu()
    {
      case 1:add();
             break;
-     case 2:delete();
+     case 2://delete();
             break;
-     case 3:edit();
+     case 3://edit();
             break;
-     case 4:print();
+     case 4://print();
             break;
      case 5:exit(1);
             break;
@@ -188,6 +188,47 @@ void add()
     add();
   }
 }
+void login()
+{
+  int a=4;
+  char uword[100];
+  char pword[100];
+  do
+ {
+   clrscr();
+   printf("************************LOGIN FORM***************************");
+   printf("\nEnter the username:/n");
+   scanf("%s",uword);
+   printf("/nEnter the password:");
+   int i=0;
+   while (i<6)
+   {
+    pword[i]=getch();
+    printf("*");
+    i++;
+   }
+   pword[i]='/0';
+   if((uword=="admin")&&(pword=="admin"))
+   {
+     printf("/nInvalid username or password");
+     a--;
+   }
+  else
+  {
+    printf("/nLogin Successful/n");
+    exit(1);
+  }
+ }while(a);
+}  
+  
+  
+  
+
+
+
+      
+       
+ 
   
        
 

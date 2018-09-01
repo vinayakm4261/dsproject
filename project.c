@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include<stdio.h>
 #include<conio.h>
 #include<string.h>
@@ -234,5 +233,3 @@ void login()
        
 
     
-=======
->>>>>>> 17d04da24e4edcba00f687f2da9429de9165a772

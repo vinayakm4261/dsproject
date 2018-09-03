@@ -26,20 +26,16 @@ void menu();
 void main()
 {
   //system("cls");
-  int i,j,k;
-  printf("\nWelcome to the.....\n");//<--Think of something here..!!
-  menu();                                               
+  printf("\n****Welcome to the Hotel Reservation System****\n");//<--Think of something here..!!
+  login();                                               
 }
 void menu()
 {
   int i;
-  Start:
-  printf("\nLogin to the system:");
-  login();
-  printf("MENU:");
+  printf("\n**********MENU**********:");
   do
   {
-   printf("\n1:Add a reservation\n2:Delete a reservation\n3:Edit a reservation\n4:Show a reservation\n5:Exit\n");
+   printf("\n1:Add a reservation\n2:Delete a reservation\n3:Edit a reservation\n4:Show a reservation\n5:Logout\n6.Exit\n");
    printf("\nEnter your choice:");
    scanf("%d",&i);
    switch(i)
@@ -52,8 +48,10 @@ void menu()
             break;
      case 4://print();
             break;
-     case 5:exit(1);
+     case 5:login();
             break;
+     case 6:exit(1);
+            break;       
      default:printf("\n*Invalid Choice..Enter again*");
              system("cls");
              break;
@@ -127,7 +125,8 @@ void add()
     }
     NAME:
     printf("\nEnter your name:");
-    gets(s.name);
+    scanf("%s",s.name);
+    //printf("%d",strlen(s.name));
     if((strlen(s.name))<=2)
     {
       printf("\nEntered name is invalid");
@@ -147,7 +146,8 @@ void add()
     }
     ADDRESS:
     printf("\nEnter your current residential address:");
-    gets(s.add);
+    scanf("%s",s.add);
+    //printf("%d",strlen(s.add));
     if((strlen(s.add))<=4)
     {
       printf("\nInvalid Address");
@@ -157,8 +157,8 @@ void add()
     }
     EMAIL:
     printf("Enter your Email-ID:");
-    gets(s.email);
-    for(i=0;s.email[i]!='\0';i++)
+    scanf("%s",s.email);
+    for(i=0;s.email[i]!='\0';i++)//Loop for checking email-ID
     {
      if(s.email[i]=='@')
       {
@@ -195,11 +195,11 @@ void login()
   char pword[100];
   do
  {
-   clrscr();
-   printf("************************LOGIN FORM***************************");
-   printf("\nEnter the username:/n");
+   //clrscr();
+   printf("**********LOGIN FORM**********");
+   printf("\nEnter the username:");
    scanf("%s",uword);
-   printf("/nEnter the password:");
+   printf("\nEnter the password:");
    int i=0;
    while (i<6)
    {
@@ -207,22 +207,81 @@ void login()
     printf("*");
     i++;
    }
-   pword[i]='/0';
+   pword[i]="/0";
    if((uword=="admin")&&(pword=="admin"))
    {
-     printf("/nInvalid username or password");
+     printf("\nInvalid username or password");
      a--;
    }
   else
   {
-    printf("/nLogin Successful/n");
-    exit(1);
+    printf("\nLogin Successful\n");
+    break;
   }
  }while(a);
-}  
-  
-  
-  
+ if(a==0)
+ {
+   printf("\nNo login attempts left..exiting the system");
+   exit(1);
+ }
+ else
+ {
+   menu();
+ }
+}
+/*void edit()
+{
+  FILE *temp,*ori;
+  int room_number,i,found=0;
+  char geb;
+  temp=fopen("temp.txt","a");
+  if((ori=fopen("Reserv_Details.txt","r"))==NULL)
+  {
+    printf("\nNo records added..");
+    printf("\nPress any key to return to menu..");
+    getch();
+    menu();
+  }
+  else
+  {
+    while((fscanf(ori," %d %s %d %s %s %d %d %d %d ",&s.room_number,s.name,&s.no_of_people,s.add,s.email,&s.start_dd,&s.start_mm,&s.end_dd,&s.end_mm))!=EOF)
+    {
+      if(room_number==s.room_number)
+      {
+        printf("\nRecord Found..");
+        printf("\n****Existing Record****");
+        printf("\nRoom Number:%d",s.room_number);
+        printf("\nName:%s",s.name);
+        printf("\nNumber of People:%d",s.no_of_people);
+        printf("\nAddress:%s",s.add);
+        printf("\nEmail-ID:%s",s.email);
+        printf("\nCheck-In Date:%d/%d",s.start_dd,s.start_mm);
+        printf("\nCheck-Out Date:%d/%d",s.end_dd,s.end_mm);
+        printf("\n****Enter new details****");
+        printf("\nEnter new name:");
+        gets(s.name);
+        printf("\nEnter Number of People:");
+        scanf("%d",s.no_of_people);
+        printf("\nEnter new Address:");
+        gets(s.add);
+        printf("\nEnter new Email-ID:");
+        gets(s.email);
+        printf("\nPress 'e' to finish editing the record or press any other key to exit..");
+        geb=getche();
+        if(geb=="e" || geb=="E")
+        {
+           fprintf(temp,"\n %d %s %d %s %s %d %d %d %d ",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+           printf("\nRecord Edited Successfully..!!");
+        }
+      }
+      else
+      {
+        fprintf(temp,"\n %d %s %d %s %s %d %d %d %d ",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+      }
+    } 
+  }
+}*/
+
 
 
 

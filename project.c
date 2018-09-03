@@ -19,8 +19,7 @@ struct roomdetail
 void add();
 //void delete();
 //void edit();
-//void print();
-//void input();
+void print();
 void login();
 void menu();
 void main()
@@ -32,10 +31,10 @@ void main()
 void menu()
 {
   int i;
-  printf("\n**********MENU**********:");
+  printf("\n**********MENU**********");
   do
   {
-   printf("\n1:Add a reservation\n2:Delete a reservation\n3:Edit a reservation\n4:Show a reservation\n5:Logout\n6.Exit\n");
+   printf("\n1:Add a reservation\n2:Delete a reservation\n3:Edit a reservation\n4:Show reservations\n5:Logout\n6.Exit\n");
    printf("\nEnter your choice:");
    scanf("%d",&i);
    switch(i)
@@ -46,7 +45,7 @@ void menu()
             break;
      case 3://edit();
             break;
-     case 4://print();
+     case 4:print();
             break;
      case 5:login();
             break;
@@ -229,7 +228,7 @@ void login()
    menu();
  }
 }
-/*void edit()
+void edit()
 {
   FILE *temp,*ori;
   int room_number,i,found=0;
@@ -259,13 +258,13 @@ void login()
         printf("\nCheck-Out Date:%d/%d",s.end_dd,s.end_mm);
         printf("\n****Enter new details****");
         printf("\nEnter new name:");
-        gets(s.name);
+        scanf("%s",s.name);
         printf("\nEnter Number of People:");
         scanf("%d",s.no_of_people);
         printf("\nEnter new Address:");
-        gets(s.add);
+        scanf("%s",s.add);
         printf("\nEnter new Email-ID:");
-        gets(s.email);
+        scanf("%s",s.email);
         printf("\nPress 'e' to finish editing the record or press any other key to exit..");
         geb=getche();
         if(geb=="e" || geb=="E")
@@ -280,7 +279,26 @@ void login()
       }
     } 
   }
-}*/
+}
+void print()
+{
+  FILE *fs;
+  fs=fopen("Reserv_Details.txt","r");
+  printf("\nRoom number\tName\tNo of People\tAddress\tEmail-ID\tCheck-In\tCheck-Out\t\n");
+  int i;
+  for(i=0;i<=50;i++)
+    {printf("-");}
+  while(!feof(fs))
+  { 
+    fscanf(fs," %d %s %d %s %s %d %d %d %d",&s.room_number,&s.name,&s.no_of_people,&s.add,&s.email,&s.start_dd,&s.start_mm,&s.end_dd,&s.end_mm);
+    printf("%d\t%s\t%d\t%s\t%s\t%d.%d\t%d.%d\n",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+    for(i=0;i<=50;i++)
+    {
+      printf("-");
+    }
+  }
+  fclose(fs);
+}
 
 
 

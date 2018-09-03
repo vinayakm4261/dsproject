@@ -1,5 +1,4 @@
 
- 0 First 2 Somewhere kgjyg@uhvt.com 0 0 0 0 
+ 1 First 2 Somewhere kgjyg@uhvt.com 5 2 12 2 
  2 Second 4 Earth hdyhc@jgfu.com 4 3 9 3 
- 2 Third 5 ASETeazt fxcgf@ygbjh.com 4 3 9 3 
- 5 Fourth 1 colony vjssfj@ 12 5 19 5 
+ 5 Third 1 colony vjssfj@ 12 5 19 5 

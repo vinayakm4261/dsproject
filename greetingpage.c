@@ -3,7 +3,49 @@
 void main()
 {
     int i,j,k;//Declaring just in case
-    printf("\nWelcome to the.....");
+    for(i=0;i<15;i++)
+    {printf("%c",3);}
+     for(i=0;i<15;i++)
+    {printf("*");}
+     for(i=0;i<15;i++)
+    {printf("*");}
+ for(i=0;i<5;i++)
+ {
+  printf("*       *");
+ }
+ printf("\n");
+ for(i=0;i<5;i++)
+ {
+  printf("  *    * ");
+ }
+ printf("\n");
+ for(i=0;i<5;i++)
+ {
+  printf("    * *  ");
+ }
+   for(i=0;i<10;i++)
+    {printf("-");}
+    printf("WELCOME TO THE HOTEL RESERVATION SYSTEM");
+    for(i=0;i<10;i++)
+    {printf("-");}
+ for(i=0;i<10;i++)
+ {
+  printf("*       *");
+ }
+ printf("\n");
+ for(i=0;i<5;i++)
+ {
+  printf("  *    * ");
+ }
+ printf("\n");
+ for(i=0;i<5;i++)
+ {
+  printf("    * *  ");
+ } 
+    for(i=0;i<15;i++)
+    {printf("*");}
+     for(i=0;i<15;i++)
+    {printf("%c",3);}
     //Bhai ye bana
     /*.
     .
@@ -12,5 +54,6 @@ void main()
     .
     .
     .*/
+    /*The above code was compiled in TURBOC3 and some others compilers so, their execution on other compilers may differ.*/ 
     menu();
 }

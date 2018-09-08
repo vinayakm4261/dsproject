@@ -19,7 +19,7 @@ struct roomdetail
 void add();
 //void delete();
 //void edit();
-void print();
+//void print();
 void login();
 void menu();
 void main()
@@ -45,7 +45,7 @@ void menu()
             break;
      case 3://edit();
             break;
-     case 4:print();
+     case 4://print();
             break;
      case 5:login();
             break;
@@ -63,7 +63,7 @@ void add()
   int i,j,k,chk=0,room_number;
   int start_dd,end_dd,start_mm,end_mm;
   fp=fopen("Reserv_Details.txt","a+");
-  if(fp==0)
+  if(fp==NULL)
   {
     printf("\nDatabse empty....please wait while we create the records");
     fp=fopen("Reserv_Details.txt","w+");
@@ -89,11 +89,11 @@ void add()
     printf("\nDate:");
     scanf("%d",&end_dd);
     //Main loop for checking only
-    while((fscanf(fp," %d %s %d %s %s %d %d %d %d ",&s.room_number,s.name,&s.no_of_people,s.add,s.email,&s.start_dd,&s.start_mm,&s.end_dd,&s.end_mm))!=EOF)//Main scanning loop
+    while((fscanf(fp," %d %s %d %s %s %d %d %d %d",&s.room_number,s.name,&s.no_of_people,s.add,s.email,&s.start_dd,&s.start_mm,&s.end_dd,&s.end_mm))!=EOF)//Main scanning loop
     {
       if(start_mm==s.start_mm && end_mm==s.end_mm)//Conditions for checking only date
       {       
-        if((start_dd=s.start_dd) || (start_dd>s.start_dd && start_dd<s.end_dd) || (start_dd==s.end_dd))
+        if((start_dd==s.start_dd) || (start_dd>s.start_dd && start_dd<s.end_dd) || (start_dd==s.end_dd) || (end_dd==s.start_dd) || (end_dd>s.start_dd && end_dd<s.end_dd) || (end_dd==s.end_dd))
         {
           printf("\nSelected room is booked from %d/%d to %d/%d",s.start_dd,s.start_mm,s.end_dd,s.end_mm);
           printf("\nPlease select a different room or change the date:");
@@ -109,19 +109,19 @@ void add()
           }
         }        
       }
-      if(room_number==s.room_number && start_mm==s.start_mm && start_dd==s.start_dd)//Don't know why this exists..!!
+      if(room_number==s.room_number && start_mm==s.start_mm && start_dd==s.start_dd && end_dd==s.end_dd)//Don't know why this exists..!!
       {
         printf("\nSelected room is already booked from %d/%d to %d/%d",s.start_dd,s.start_mm,s.end_dd,s.end_mm);//<---
         printf("\nSelect another room..press any key to continue..");
         getch();
         goto ROOM;
-      } 
-     s.room_number=room_number;
-     s.start_dd=start_dd;
-     s.start_mm=start_mm;
-     s.end_dd=end_dd;
-     s.end_mm=end_mm;
-    }
+      }
+    }   
+    s.room_number=room_number;
+    s.start_dd=start_dd;
+    s.start_mm=start_mm;
+    s.end_dd=end_dd;
+    s.end_mm=end_mm;
     NAME:
     printf("\nEnter your name:");
     scanf("%s",s.name);
@@ -172,7 +172,7 @@ void add()
       getch();
       goto EMAIL;
     }
-    fprintf(fp,"\n %d %s %d %s %s %d %d %d %d ",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+    fprintf(fp,"\n %d %s %d %s %s %d %d %d %d",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
     printf("\nRoom booked successfully..!!");
     fclose(fp);
   }
@@ -228,7 +228,7 @@ void login()
    menu();
  }
 }
-void edit()
+/*void edit()
 {
   FILE *temp,*ori;
   int room_number,i,found=0;
@@ -279,8 +279,8 @@ void edit()
       }
     } 
   }
-}
-void print()
+}*/
+/*void print()
 {
   FILE *fs;
   fs=fopen("Reserv_Details.txt","r");
@@ -298,7 +298,7 @@ void print()
     }
   }
   fclose(fs);
-}
+}*/
 
 
 

@@ -34,28 +34,28 @@ void menu()
   printf("\n**********MENU**********");
   do
   {
-   printf("\n1:Add a reservation\n2:Delete a reservation\n3:Edit a reservation\n4:Show reservations\n5:Logout\n6.Exit\n");
-   printf("\nEnter your choice:");
-   scanf("%d",&i);
-   switch(i)
-   {
-     case 1:add();
-            break;
-     case 2://delete();
-            break;
-     case 3://edit();
-            break;
-     case 4://print();
-            break;
-     case 5:login();
-            break;
-     case 6:exit(1);
-            break;       
-     default:printf("\n*Invalid Choice..Enter again*");
-             system("cls");
+    printf("\n1:Add a reservation\n2:Delete a reservation\n3:Edit a reservation\n4:Show reservations\n5:Logout\n6.Exit\n");
+    printf("\nEnter your choice:");
+    scanf("%d",&i);
+    switch(i)
+    {
+      case 1:add();
              break;
-   }
- }while(1);
+      case 2://delete();
+             break;
+      case 3://edit();
+             break;
+      case 4://print();
+             break;
+      case 5:login();
+             break;
+      case 6:exit(1);
+             break;       
+      default:printf("\n*Invalid Choice..Enter again*");
+              system("cls");
+              break;
+    }
+  }while(1);
 }
 void add()
 {
@@ -108,6 +108,42 @@ void add()
                    break;       
           }
         }        
+      }
+      if((start_mm<s.start_mm) && (end_mm==s.start_mm))
+      {
+        if((end_dd==s.end_dd) || (end_dd>s.start_dd && end_dd<s.end_dd))
+        {
+          printf("\nSelected room is booked from %d/%d to %d/%d",s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+          printf("\nPlease select a different room or change the date:");
+          printf("\n1.Select new room\n2.Change date\n");
+          printf("\nEnter your choice:");
+          scanf("%d",&j);
+          switch(j)
+          {
+            case 1:goto ROOM;
+                   break;
+            case 2:goto INDATE;
+                   break;       
+          }
+        }  
+      }
+      if((start_mm==s.start_mm) && (end_mm>s.start_mm))
+      {
+        if((start_dd==s.start_dd) || (start_dd>s.start_dd && start_dd<s.end_dd))
+        {
+          printf("\nSelected room is booked from %d/%d to %d/%d",s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+          printf("\nPlease select a different room or change the date:");
+          printf("\n1.Select new room\n2.Change date\n");
+          printf("\nEnter your choice:");
+          scanf("%d",&j);
+          switch(j)
+          {
+            case 1:goto ROOM;
+                   break;
+            case 2:goto INDATE;
+                   break;
+          }
+        }  
       }
       if(room_number==s.room_number && start_mm==s.start_mm && start_dd==s.start_dd && end_dd==s.end_dd)//Don't know why this exists..!!
       {

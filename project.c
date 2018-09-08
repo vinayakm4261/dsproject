@@ -89,11 +89,12 @@ void add()
     printf("\nDate:");
     scanf("%d",&end_dd);
     //Main loop for checking only
+    COMPARE:
     while((fscanf(fp," %d %s %d %s %s %d %d %d %d",&s.room_number,s.name,&s.no_of_people,s.add,s.email,&s.start_dd,&s.start_mm,&s.end_dd,&s.end_mm))!=EOF)//Main scanning loop
     {
       if(start_mm==s.start_mm && end_mm==s.end_mm)//Conditions for checking only date
       {       
-        if((start_dd==s.start_dd) || (start_dd>s.start_dd && start_dd<s.end_dd) || (start_dd==s.end_dd) || (end_dd==s.start_dd) || (end_dd>s.start_dd && end_dd<s.end_dd) || (end_dd==s.end_dd))
+        if((start_dd==s.start_dd) || (start_dd==s.end_dd) || (end_dd==s.start_dd) || (end_dd==s.end_dd))
         {
           printf("\nSelected room is booked from %d/%d to %d/%d",s.start_dd,s.start_mm,s.end_dd,s.end_mm);
           printf("\nPlease select a different room or change the date:");
@@ -102,14 +103,33 @@ void add()
           scanf("%d",&j);
           switch(j)
           {
-            case 1:goto ROOM;
+            case 1:printf("\nEnter new room number:");
+                   scanf("%d",&room_number);
                    break;
             case 2:goto INDATE;
+                   goto COMPARE;
                    break;       
           }
-        }        
+        }
+        else if((start_dd>s.start_dd && start_dd<s.end_dd) || (end_dd>s.start_dd && end_dd<s.end_dd))
+        {
+          printf("\nSelected room is booked from %d/%d to %d/%d",s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+          printf("\nPlease select a different room or change the date:");
+          printf("\n1.Select new room\n2.Change date\n");
+          printf("\nEnter your choice:");
+          scanf("%d",&j);
+          switch(j)
+          {
+            case 1:printf("\nEnter new room number:");
+                   scanf("%d",&room_number);
+                   break;
+            case 2:goto INDATE;
+                   goto COMPARE;
+                   break;
+          }
+        }          
       }
-      if((start_mm<s.start_mm) && (end_mm==s.start_mm))
+      else if((start_mm<s.start_mm) && (end_mm==s.start_mm))
       {
         if((end_dd==s.end_dd) || (end_dd>s.start_dd && end_dd<s.end_dd))
         {
@@ -120,14 +140,16 @@ void add()
           scanf("%d",&j);
           switch(j)
           {
-            case 1:goto ROOM;
+            case 1:printf("\nEnter new room number:");
+                   scanf("%d",&room_number);
                    break;
             case 2:goto INDATE;
+                   goto COMPARE;
                    break;       
           }
         }  
       }
-      if((start_mm==s.start_mm) && (end_mm>s.start_mm))
+      else if((start_mm==s.start_mm) && (end_mm>s.start_mm))
       {
         if((start_dd==s.start_dd) || (start_dd>s.start_dd && start_dd<s.end_dd))
         {
@@ -138,20 +160,22 @@ void add()
           scanf("%d",&j);
           switch(j)
           {
-            case 1:goto ROOM;
+            case 1:printf("\nEnter new room number:");
+                   scanf("%d",&room_number);
                    break;
             case 2:goto INDATE;
+                   goto COMPARE;
                    break;
           }
         }  
       }
-      if(room_number==s.room_number && start_mm==s.start_mm && start_dd==s.start_dd && end_dd==s.end_dd)//Don't know why this exists..!!
+      /*if(room_number==s.room_number && start_mm==s.start_mm && start_dd==s.start_dd && end_dd==s.end_dd)//Don't know why this exists..!!
       {
         printf("\nSelected room is already booked from %d/%d to %d/%d",s.start_dd,s.start_mm,s.end_dd,s.end_mm);//<---
         printf("\nSelect another room..press any key to continue..");
         getch();
         goto ROOM;
-      }
+      }*/
     }   
     s.room_number=room_number;
     s.start_dd=start_dd;
@@ -229,40 +253,40 @@ void login()
   char uword[100];
   char pword[100];
   do
- {
+  {
    //clrscr();
-   printf("**********LOGIN FORM**********");
-   printf("\nEnter the username:");
-   scanf("%s",uword);
-   printf("\nEnter the password:");
-   int i=0;
-   while (i<6)
-   {
-    pword[i]=getch();
-    printf("*");
-    i++;
-   }
-   pword[i]="/0";
-   if((uword=="admin")&&(pword=="admin"))
-   {
-     printf("\nInvalid username or password");
-     a--;
-   }
+    printf("**********LOGIN FORM**********");
+    printf("\nEnter the username:");
+    scanf("%s",uword);
+    printf("\nEnter the password:");
+    int i=0;
+    while (i<6)
+    {
+      pword[i]=getch();
+      printf("*");
+      i++;
+    }
+    pword[i]="/0";
+    if((uword=="admin")&&(pword=="admin"))
+    {
+      printf("\nInvalid username or password");
+      a--;
+    }
+    else
+    {
+      printf("\nLogin Successful\n");
+      break;
+    }
+  }while(a);
+  if(a==0)
+  {
+    printf("\nNo login attempts left..exiting the system");
+    exit(1);
+  }
   else
   {
-    printf("\nLogin Successful\n");
-    break;
+    menu();
   }
- }while(a);
- if(a==0)
- {
-   printf("\nNo login attempts left..exiting the system");
-   exit(1);
- }
- else
- {
-   menu();
- }
 }
 /*void edit()
 {

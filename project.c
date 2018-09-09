@@ -18,7 +18,7 @@ struct roomdetail
 }s;
 void add();
 //void delete();
-//void edit();
+void edit();
 //void print();
 void login();
 void menu();
@@ -43,7 +43,7 @@ void menu()
              break;
       case 2://delete();
              break;
-      case 3://edit();
+      case 3:edit();
              break;
       case 4://print();
              break;
@@ -288,12 +288,12 @@ void login()
     menu();
   }
 }
-/*void edit()
+void edit()
 {
   FILE *temp,*ori;
   int room_number,i,found=0;
   char geb;
-  temp=fopen("temp.txt","a");
+  char old[]="Reserv_Details.txt",new[]="temp.txt";
   if((ori=fopen("Reserv_Details.txt","r"))==NULL)
   {
     printf("\nNo records added..");
@@ -303,10 +303,15 @@ void login()
   }
   else
   {
-    while((fscanf(ori," %d %s %d %s %s %d %d %d %d ",&s.room_number,s.name,&s.no_of_people,s.add,s.email,&s.start_dd,&s.start_mm,&s.end_dd,&s.end_mm))!=EOF)
+    temp=fopen("temp.txt","w");
+    ori=fopen("Reserv_Details.txt","r");
+    printf("\nEnter room number of customer to edit:");
+    scanf("%d",&room_number);
+    while((fscanf(ori," %d %s %d %s %s %d %d %d %d",&s.room_number,s.name,&s.no_of_people,s.add,s.email,&s.start_dd,&s.start_mm,&s.end_dd,&s.end_mm))!=EOF)
     {
       if(room_number==s.room_number)
       {
+        found=1;
         printf("\nRecord Found..");
         printf("\n****Existing Record****");
         printf("\nRoom Number:%d",s.room_number);
@@ -320,26 +325,44 @@ void login()
         printf("\nEnter new name:");
         scanf("%s",s.name);
         printf("\nEnter Number of People:");
-        scanf("%d",s.no_of_people);
+        scanf("%d",&s.no_of_people);
         printf("\nEnter new Address:");
         scanf("%s",s.add);
         printf("\nEnter new Email-ID:");
         scanf("%s",s.email);
         printf("\nPress 'e' to finish editing the record or press any other key to exit..");
         geb=getche();
-        if(geb=="e" || geb=="E")
+        if(geb=='e' || geb=='E')
         {
-           fprintf(temp,"\n %d %s %d %s %s %d %d %d %d ",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
-           printf("\nRecord Edited Successfully..!!");
+          fprintf(temp,"\n %d %s %d %s %s %d %d %d %d",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+          printf("\nRecord Edited Successfully..!!");
         }
       }
       else
       {
-        fprintf(temp,"\n %d %s %d %s %s %d %d %d %d ",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+        fprintf(temp,"\n %d %s %d %s %s %d %d %d %d",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
       }
-    } 
+    }
+    if(found==0)
+    {
+      printf("\nThe record dosen't exist..!!");
+    }
+    fclose(temp);
+    fclose(ori);
+    remove("Reserv_Details.txt");
+    rename("temp.txt","Reserv_Details.txt");
+  }  
+  /*printf("\nPress esc key to exit..or any other key to edit another record");
+  i=getche();
+  if(i==27)
+  {
+    menu();
   }
-}*/
+  else
+  {
+    edit();
+  }*/
+}
 /*void print()
 {
   FILE *fs;

@@ -20,13 +20,15 @@ void add();
 //void delete();
 void edit();
 //void print();
-void login();
+void filemanage();
+//void login();
 void menu();
 void main()
 {
   //system("cls");
   printf("\n****Welcome to the Hotel Reservation System****\n");//<--Think of something here..!!
-  login();                                               
+  //login();
+  menu();                                               
 }
 void menu()
 {
@@ -47,7 +49,7 @@ void menu()
              break;
       case 4://print();
              break;
-      case 5:login();
+      case 5://login();
              break;
       case 6:exit(1);
              break;       
@@ -62,16 +64,16 @@ void add()
   FILE *fp;
   int i,j,k,chk=0,room_number;
   int start_dd,end_dd,start_mm,end_mm;
-  fp=fopen("Reserv_Details.txt","a+");
+  fp=fopen("ReservDetails.txt","a+");
   if(fp==NULL)
   {
     printf("\nDatabse empty....please wait while we create the records");
-    fp=fopen("Reserv_Details.txt","w+");
+    fp=fopen("ReservDetails.txt","w+");
     printf("\nProcess completed press any key to continue....");
     getch();
   }
   //system("cls");
-  if((fp=fopen("Reserv_Details.txt","a+"))!=NULL)
+  if((fp=fopen("ReservDetails.txt","a+"))!=NULL)
   {
     ROOM:
     printf("\nEnter the room number which you want to book:");
@@ -247,7 +249,7 @@ void add()
     add();
   }
 }
-void login()
+/*void login()
 {
   int a=4;
   char uword[100];
@@ -287,14 +289,16 @@ void login()
   {
     menu();
   }
-}
+}*/
 void edit()
 {
-  FILE *temp,*ori;
+  FILE *fp1,*fp2;
   int room_number,i,found=0;
   char geb;
-  char old[]="Reserv_Details.txt",new[]="temp.txt";
-  if((ori=fopen("Reserv_Details.txt","r"))==NULL)
+  //char old[]="ReservDetails.txt",new[]="temp.txt";
+  fp1=fopen("temp.txt","w+");
+  fp2=fopen("ReservDetails.txt","r+");
+  if((fp2=fopen("ReservDetails.txt","r"))==NULL)
   {
     printf("\nNo records added..");
     printf("\nPress any key to return to menu..");
@@ -303,11 +307,9 @@ void edit()
   }
   else
   {
-    temp=fopen("temp.txt","w");
-    ori=fopen("Reserv_Details.txt","r");
     printf("\nEnter room number of customer to edit:");
     scanf("%d",&room_number);
-    while((fscanf(ori," %d %s %d %s %s %d %d %d %d",&s.room_number,s.name,&s.no_of_people,s.add,s.email,&s.start_dd,&s.start_mm,&s.end_dd,&s.end_mm))!=EOF)
+    while((fscanf(fp2," %d %s %d %s %s %d %d %d %d",&s.room_number,s.name,&s.no_of_people,s.add,s.email,&s.start_dd,&s.start_mm,&s.end_dd,&s.end_mm))!=EOF)
     {
       if(room_number==s.room_number)
       {
@@ -323,6 +325,7 @@ void edit()
         printf("\nCheck-Out Date:%d/%d",s.end_dd,s.end_mm);
         printf("\n****Enter new details****");
         printf("\nEnter new name:");
+        fflush(stdin);
         scanf("%s",s.name);
         printf("\nEnter Number of People:");
         scanf("%d",&s.no_of_people);
@@ -334,25 +337,42 @@ void edit()
         geb=getche();
         if(geb=='e' || geb=='E')
         {
-          fprintf(temp,"\n %d %s %d %s %s %d %d %d %d",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+          fprintf(fp1,"\n %d %s %d %s %s %d %d %d %d",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+          fflush(stdin);
           printf("\nRecord Edited Successfully..!!");
         }
       }
       else
       {
-        fprintf(temp,"\n %d %s %d %s %s %d %d %d %d",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+        fprintf(fp1,"\n %d %s %d %s %s %d %d %d %d",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+        fflush(stdin);
       }
     }
     if(found==0)
     {
       printf("\nThe record dosen't exist..!!");
     }
-    fclose(temp);
-    fclose(ori);
-    remove("Reserv_Details.txt");
-    rename("temp.txt","Reserv_Details.txt");
   }  
-  /*printf("\nPress esc key to exit..or any other key to edit another record");
+  fclose(fp1);
+  fclose(fp2);
+  filemanage();
+  /*if(remove("ReservDetails.txt")!=0)
+  {
+    printf("\nUnable to delete file");
+  }
+  else
+  {
+    printf("\nDeleted successfully");
+  }
+  if(rename("temp.txt","ReservDetails.txt")!=0)
+  {
+    printf("\nUnable to rename");
+  }
+  else
+  {
+    printf("\nRenamed successfully");
+  }*/  
+  printf("\nPress esc key to exit..or any other key to edit another record");
   i=getche();
   if(i==27)
   {
@@ -361,12 +381,36 @@ void edit()
   else
   {
     edit();
-  }*/
+  }
+}
+void filemanage()
+{
+  FILE *o,*t;
+  o=fopen("ReservDetails.txt","a");
+  t=fopen("temp.txt","a");
+  fclose(o);
+  if(remove("ReservDetails.txt")!=0)
+  {
+    printf("\nDelete error");
+  }
+  else
+  {
+    printf("\nOperation completed successfully");
+  }
+  fclose(t);
+  if(rename("temp.txt","ReservDetails.txt")!=0)
+  {
+    printf("\nRename error");
+  }
+  else
+  {
+    printf("\n2nd operation completed successfully");
+  }
 }
 /*void print()
 {
   FILE *fs;
-  fs=fopen("Reserv_Details.txt","r");
+  fs=fopen("ReservDetails.txt","r");
   printf("\nRoom number\tName\tNo of People\tAddress\tEmail-ID\tCheck-In\tCheck-Out\t\n");
   int i;
   for(i=0;i<=50;i++)

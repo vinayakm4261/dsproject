@@ -17,17 +17,17 @@ struct roomdetail
   int end_mm;
 }s;
 void add();
-//void delete();
+void delete();
 void edit();
-//void print();
-void filemanage();
-//void login();
+void print();
+//void filemanage();
+void login();
 void menu();
 void main()
 {
   //system("cls");
   printf("\n****Welcome to the Hotel Reservation System****\n");//<--Think of something here..!!
-  //login();
+  login();
   menu();                                               
 }
 void menu()
@@ -36,20 +36,20 @@ void menu()
   printf("\n**********MENU**********");
   do
   {
-    printf("\n1:Add a reservation\n2:Delete a reservation\n3:Edit a reservation\n4:Show reservations\n5:Logout\n6.Exit\n");
+    printf("\n1:Add a reservation\n2:Delete a reservation\n3:Edit a reservation\n4:Show all reservations\n5:Logout\n6.Exit\n");
     printf("\nEnter your choice:");
     scanf("%d",&i);
     switch(i)
     {
       case 1:add();
              break;
-      case 2://delete();
+      case 2:delete();
              break;
       case 3:edit();
              break;
-      case 4://print();
+      case 4:print();
              break;
-      case 5://login();
+      case 5:login();
              break;
       case 6:exit(1);
              break;       
@@ -249,47 +249,42 @@ void add()
     add();
   }
 }
-/*void login()
-{
-  int a=4;
-  char uword[100];
-  char pword[100];
+void login()
+{  
+  int a=4; 
   do
   {
-   //clrscr();
-    printf("**********LOGIN FORM**********");
-    printf("\nEnter the username:");
-    scanf("%s",uword);
-    printf("\nEnter the password:");
     int i=0;
-    while (i<6)
-    {
+    char uname[10];
+    char pword[10];
+    printf("****************LOGIN FORM****************");
+    printf("\n Enter the username:");
+    scanf("%s",&uname);
+    printf("\n Enter the password:");
+    while(i<5)
+    { 
       pword[i]=getch();
       printf("*");
       i++;
     }
-    pword[i]="/0";
-    if((uword=="admin")&&(pword=="admin"))
+    pword[i]='\0';
+    if(strcmp(uname,"admin")==0 && strcmp(pword,"admin")==0)
     {
-      printf("\nInvalid username or password");
-      a--;
+      printf("\n LOGIN SUCCESSFUL \n WELCOME TO THE SYSTEM");
+      break;
     }
     else
     {
-      printf("\nLogin Successful\n");
-      break;
+      printf("\n LOGIN UNSUCCESSFUL\n");
+      a--;   
     }
   }while(a);
   if(a==0)
   {
-    printf("\nNo login attempts left..exiting the system");
-    exit(1);
+    printf("\n You have entered username and password multiple times.!!!\n");
   }
-  else
-  {
-    menu();
-  }
-}*/
+  //system("cls");
+}
 void edit()
 {
   FILE *fp1,*fp2;
@@ -355,14 +350,13 @@ void edit()
   }  
   fclose(fp1);
   fclose(fp2);
-  filemanage();
-  /*if(remove("ReservDetails.txt")!=0)
+  if(remove("ReservDetails.txt")!=0)
   {
     printf("\nUnable to delete file");
   }
   else
   {
-    printf("\nDeleted successfully");
+    printf("\nDeleted successfully");//Do something here
   }
   if(rename("temp.txt","ReservDetails.txt")!=0)
   {
@@ -370,8 +364,8 @@ void edit()
   }
   else
   {
-    printf("\nRenamed successfully");
-  }*/  
+    printf("\nRenamed successfully");//Do something here
+  }  
   printf("\nPress esc key to exit..or any other key to edit another record");
   i=getche();
   if(i==27)
@@ -383,7 +377,7 @@ void edit()
     edit();
   }
 }
-void filemanage()
+/*void filemanage()
 {
   FILE *o,*t;
   o=fopen("ReservDetails.txt","a");
@@ -406,26 +400,95 @@ void filemanage()
   {
     printf("\n2nd operation completed successfully");
   }
-}
-/*void print()
+}*/
+void print()//Adjust the formatting for printing in tabular format
 {
   FILE *fs;
   fs=fopen("ReservDetails.txt","r");
   printf("\nRoom number\tName\tNo of People\tAddress\tEmail-ID\tCheck-In\tCheck-Out\t\n");
   int i;
-  for(i=0;i<=50;i++)
-    {printf("-");}
-  while(!feof(fs))
-  { 
-    fscanf(fs," %d %s %d %s %s %d %d %d %d",&s.room_number,&s.name,&s.no_of_people,&s.add,&s.email,&s.start_dd,&s.start_mm,&s.end_dd,&s.end_mm);
-    printf("%d\t%s\t%d\t%s\t%s\t%d.%d\t%d.%d\n",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
-    for(i=0;i<=50;i++)
-    {
-      printf("-");
+  for(i=0;i<=150;i++)
+  {
+    printf("-");
+  }
+  printf("\n");
+  if(fs==NULL)
+  {
+    printf("\nNo Records Added..!!");
+  }
+  else
+  {
+    while(!feof(fs))
+    { 
+      fscanf(fs," %d %s %d %s %s %d %d %d %d",&s.room_number,s.name,&s.no_of_people,s.add,s.email,&s.start_dd,&s.start_mm,&s.end_dd,&s.end_mm);
+      printf("%d\t%-22s\t%d\t%-12s\t%-12s\t%d/%d\t%d/%d\n",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+      for(i=0;i<=150;i++)
+      {
+        printf("-");
+      }
+    printf("\n");
     }
   }
   fclose(fs);
-}*/
+  printf("\nPress any key to return to menu");
+  getch();
+}
+void delete()
+{
+  FILE *o,*t;
+  int i,room_number,found=0;
+  o=fopen("ReservDetails.txt","r");
+  t=fopen("temp.txt","w");
+  if(o==NULL)
+  {
+    printf("\nNo records added..");
+    printf("\nPress any key to return to menu");
+    getch();
+    menu();
+  }
+  else
+  {
+    printf("\nEnter the room number of the record you want to delete");
+    scanf("%d",&room_number);
+    while((fscanf(o," %d %s %d %s %s %d %d %d %d",&s.room_number,s.name,&s.no_of_people,s.add,s.email,&s.start_dd,&s.start_mm,&s.end_dd,&s.end_mm))!=EOF)
+    {
+      if(room_number!=s.room_number)
+      {
+        fprintf(t,"\n %d %s %d %s %s %d %d %d %d",s.room_number,s.name,s.no_of_people,s.add,s.email,s.start_dd,s.start_mm,s.end_dd,s.end_mm);
+      }
+      else
+      {
+        found=1;
+      } 
+    }
+    if(found==0)
+    {
+      printf("\nNo such record found");
+    }
+    else
+    {
+      printf("\nRecord deleted successfully..!!");
+    }
+    fclose(o);
+    fclose(t);
+    if(remove("ReservDetails.txt")!=0)
+    {
+      printf("\nUnable to delete file");
+    }
+    else
+    {
+      printf("\nDeleted successfully");//Do something here
+    }
+    if(rename("temp.txt","ReservDetails.txt")!=0)
+    {
+      printf("\nUnable to rename");
+    }
+    else
+    {
+      printf("\nRenamed successfully");//Do something here
+    }
+  }
+}
 
 
 

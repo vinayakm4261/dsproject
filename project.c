@@ -90,6 +90,21 @@ void add()
     scanf("%d",&end_mm);
     printf("\nDate:");
     scanf("%d",&end_dd);
+    if(start_mm==end_mm)
+    {
+      if(end_dd<start_dd)
+      {
+        printf("\nCheck-Out date cannot be before Check-In date");
+        printf("\nPlease change the dates");
+        goto INDATE;
+      }
+    }
+    if(start_mm>end_mm)
+    {
+      printf("\nCheck-Out date cannot be before Check-In date");
+      printf("\nPlease change the dates");
+      goto INDATE;
+    }
     //Main loop for checking only
     COMPARE:
     while((fscanf(fp," %d %s %d %s %s %d %d %d %d",&s.room_number,s.name,&s.no_of_people,s.add,s.email,&s.start_dd,&s.start_mm,&s.end_dd,&s.end_mm))!=EOF)//Main scanning loop

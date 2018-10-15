@@ -20,7 +20,6 @@ void add();
 void delete();
 void edit();
 void print();
-//void filemanage();
 void login();
 void menu();
 void main()
@@ -73,23 +72,61 @@ void add()
     getch();
   }
   //system("cls");
+  printf("\nRoom Numbers are from 1 to 30");
   if((fp=fopen("ReservDetails.txt","a+"))!=NULL)
   {
     ROOM:
     printf("\nEnter the room number which you want to book:");
     scanf("%d",&room_number);
+    if(room_number>30 || room_number<1)
+    {
+      printf("\nInvalid Room Number...enter again");
+      goto ROOM;
+    }
     INDATE:
     printf("\nEnter Check-In Date:");
     printf("\nMonth:-");
     scanf("%d",&start_mm);
     printf("\nDate:");
     scanf("%d",&start_dd);
+    if(start_mm==4 || start_mm==6 || start_mm==9 || start_mm==11 || start_mm<1 || start_mm>12)
+    {
+      if(start_dd>30 || start_mm<1)
+      {
+        printf("\nInvaild Date..enter again");
+        goto INDATE;
+      }
+    }
+    if(start_mm==1 || start_mm==3 || start_mm==5 || start_mm==7 || start_mm==8 || start_mm==10 || start_mm==12 || start_mm<1 || start_mm>12)
+    {
+      if(start_dd>31 || start_mm<1)
+      {
+        printf("\nInvaild Date..enter again");
+        goto INDATE;
+      }
+    }
     OUTDATE:
     printf("\nEnter Check-Out Date:");
     printf("\nMonth:");
     scanf("%d",&end_mm);
     printf("\nDate:");
     scanf("%d",&end_dd);
+    if(end_mm==4 || end_mm==6 || end_mm==9 || end_mm==11 || end_mm<1 || end_mm>12)
+    {
+      if(end_dd>30 || end_mm<1)
+      {
+        printf("\nInvaild Date..enter again");
+        goto OUTDATE;
+      }
+    }
+    if(end_mm==1 || end_mm==3 || end_mm==5 || end_mm==7 || end_mm==8 || end_mm==10 || end_mm==12 || end_mm<1 || end_mm>12)
+    {
+      if(end_dd>31 || end_mm<1)
+      {
+        printf("\nInvaild Date..enter again");
+        goto OUTDATE;
+      }
+    }
     if(start_mm==end_mm)
     {
       if(end_dd<start_dd)
@@ -202,7 +239,6 @@ void add()
     NAME:
     printf("\nEnter your name:");
     scanf("%s",s.name);
-    //printf("%d",strlen(s.name));
     if((strlen(s.name))<=2)
     {
       printf("\nEntered name is invalid");
@@ -223,7 +259,6 @@ void add()
     ADDRESS:
     printf("\nEnter your current residential address:");
     scanf("%s",s.add);
-    //printf("%d",strlen(s.add));
     if((strlen(s.add))<=4)
     {
       printf("\nInvalid Address");
@@ -253,14 +288,17 @@ void add()
     printf("\nRoom booked successfully..!!");
     fclose(fp);
   }
+  fclose(fp);
   printf("\nPress esc key to exit..or any other key to add another customer detail");
   k=getche();
   if(k==27)
   {
+    fclose(fp);
     menu();
   }
   else
   {
+    fclose(fp);
     add();
   }
 }
@@ -371,7 +409,7 @@ void edit()
   }
   else
   {
-    printf("\nDeleted successfully");//Do something here
+    printf("\n..");//Do something here
   }
   if(rename("temp.txt","ReservDetails.txt")!=0)
   {
@@ -379,7 +417,7 @@ void edit()
   }
   else
   {
-    printf("\nRenamed successfully");//Do something here
+    printf("\n..");//Do something here
   }  
   printf("\nPress esc key to exit..or any other key to edit another record");
   i=getche();
@@ -392,31 +430,7 @@ void edit()
     edit();
   }
 }
-/*void filemanage()
-{
-  FILE *o,*t;
-  o=fopen("ReservDetails.txt","a");
-  t=fopen("temp.txt","a");
-  fclose(o);
-  if(remove("ReservDetails.txt")!=0)
-  {
-    printf("\nDelete error");
-  }
-  else
-  {
-    printf("\nOperation completed successfully");
-  }
-  fclose(t);
-  if(rename("temp.txt","ReservDetails.txt")!=0)
-  {
-    printf("\nRename error");
-  }
-  else
-  {
-    printf("\n2nd operation completed successfully");
-  }
-}*/
-void print()//Adjust the formatting for printing in tabular format
+void print()
 {
   FILE *fs;
   fs=fopen("ReservDetails.txt","r");
@@ -492,7 +506,7 @@ void delete()
     }
     else
     {
-      printf("\nDeleted successfully");//Do something here
+      printf("\n..");
     }
     if(rename("temp.txt","ReservDetails.txt")!=0)
     {
@@ -500,7 +514,7 @@ void delete()
     }
     else
     {
-      printf("\nRenamed successfully");//Do something here
+      printf("\n..");
     }
   }
 }

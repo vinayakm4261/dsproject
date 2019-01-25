@@ -514,9 +514,10 @@ void delete()
     }
     else
     {
-      printf("\n..");
+      printf("\n.");
     }
   }
+  printf("HEllo");
 }
 
 
